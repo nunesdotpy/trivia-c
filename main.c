@@ -207,5 +207,5 @@ int main(int argc, char* args[]) {
     // Atualizar a tela
     SDL_RenderPresent(renderer);
 }
-
+        return 0;
     }
