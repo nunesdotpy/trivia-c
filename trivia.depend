@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1716438728 source:c:\users\prome\onedrive\Área de trabalho\game\trivia-c\main.c
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<GL/glew.h>
+	<stdio.h>
+	<stdbool.h>
+

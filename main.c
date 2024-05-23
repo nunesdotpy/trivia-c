@@ -6,6 +6,7 @@
 
 bool init();
 void close();
+void handleMouseClick(int x, int y);
 
 SDL_Window* gWindow = NULL;
 SDL_GLContext gContext;
@@ -119,6 +120,8 @@ int totalQuestions = sizeof(questions) / sizeof(questions[0]);
 int currentQuestion = 0;
 bool answerSelected = false;
 int score = 0;
+bool showFeedback = false; // Vari�vel para controlar se o feedback deve ser mostrado
+bool correctAnswer = false; // Vari�vel para armazenar se a resposta selecionada pelo jogador foi correta
 
 void renderQuestion(Question q) {
     renderText(q.question, 50, 50);
@@ -127,27 +130,25 @@ void renderQuestion(Question q) {
     }
 }
 
-void handleKeyPress(SDL_Keycode key) {
-    if (!answerSelected) {
-        if (key >= SDLK_1 && key <= SDLK_4) {
-            int selectedOption = key - SDLK_1;
-            if (selectedOption == questions[currentQuestion].correctOption) {
-                printf("Correct!\n");
-                score += 100;
-            } else {
-                printf("Wrong!\n");
-            }
-            answerSelected = true;
-        }
-    } else {
-        currentQuestion++;
-        if (currentQuestion >= totalQuestions) {
-            printf("Quiz completed! Final score: %d\n", score);
-            currentQuestion = 0;
-            score = 0;
-        }
-        answerSelected = false;
-    }
+// Adicione estas vari�veis globais para definir as dimens�es e a posi��o do bot�o
+const int BUTTON_WIDTH = 200;
+const int BUTTON_HEIGHT = 50;
+const int BUTTON_X = 300;
+const int BUTTON_Y = 500;
+
+void renderButton() {
+    // Desenha o bot�o na tela
+    SDL_Rect buttonRect = {BUTTON_X, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT};
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderFillRect(renderer, &buttonRect);
+
+    // Renderiza o texto "Next" no centro do bot�o
+    renderText("Next", BUTTON_X + BUTTON_WIDTH / 2 - 20, BUTTON_Y + BUTTON_HEIGHT / 2 - 10);
+}
+
+bool isInsideButton(int x, int y) {
+    // Verifica se as coordenadas (x, y) est�o dentro dos limites do bot�o
+    return (x >= BUTTON_X && x <= BUTTON_X + BUTTON_WIDTH && y >= BUTTON_Y && y <= BUTTON_Y + BUTTON_HEIGHT);
 }
 
 void handleMouseClick(int x, int y) {
@@ -157,22 +158,45 @@ void handleMouseClick(int x, int y) {
                 if (i == questions[currentQuestion].correctOption) {
                     printf("Correct!\n");
                     score += 100;
+                    showFeedback = true; // Mostrar feedback apenas se uma resposta foi selecionada
+                    correctAnswer = true; // Indica que a resposta foi correta
                 } else {
                     printf("Wrong!\n");
+                    showFeedback = true; // Mostrar feedback apenas se uma resposta foi selecionada
+                    correctAnswer = false; // Indica que a resposta foi incorreta
                 }
                 answerSelected = true;
                 break;
             }
         }
     } else {
-        currentQuestion++;
-        if (currentQuestion >= totalQuestions) {
-            printf("Quiz completed! Final score: %d\n", score);
-            currentQuestion = 0;
-            score = 0;
+        if (isInsideButton(x, y)) {
+            currentQuestion++;
+            if (currentQuestion >= totalQuestions) {
+                printf("Quiz completed! Final score: %d\n", score);
+                currentQuestion = 0;
+                score = 0;
+            }
+            answerSelected = false;
+            showFeedback = false; // Reinicia a vari�vel de controle do feedback
         }
-        answerSelected = false;
     }
+}
+
+void renderFeedback() {
+    if (showFeedback) {
+        if (correctAnswer) {
+            renderText("Correct!", 50, 300);
+        } else {
+            renderText("Wrong!", 50, 300);
+        }
+    }
+}
+
+void renderScore() {
+    char scoreText[50];
+    sprintf(scoreText, "Score: %d", score);
+    renderText(scoreText, 50, 20);
 }
 
 int main(int argc, char* args[]) {
@@ -188,8 +212,6 @@ int main(int argc, char* args[]) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
-            } else if (e.type == SDL_KEYDOWN) {
-                handleKeyPress(e.key.keysym.sym);
             } else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
                 int x, y;
                 SDL_GetMouseState(&x, &y);
@@ -198,14 +220,18 @@ int main(int argc, char* args[]) {
         }
 
         // Limpar a tela
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0,
-        255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-    renderQuestion(questions[currentQuestion]);
+        renderScore();
+        renderQuestion(questions[currentQuestion]);
+        renderButton();
+        renderFeedback(); // Renderiza o feedback se showFeedback for verdadeiro
 
-    // Atualizar a tela
-    SDL_RenderPresent(renderer);
-}
-        return 0;
+        // Atualizar a tela
+        SDL_RenderPresent(renderer);
     }
+
+    close();
+    return 0;
+}
