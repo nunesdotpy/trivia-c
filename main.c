@@ -111,16 +111,16 @@ typedef struct {
 } Question;
 
 Question questions[] = {
-    {"Qual é a capital do Brasil?", ["Brasília", "Rio de Janeiro", "São Paulo", "Belo Horizonte"], 0},
-    {"Qual é o maior oceano do mundo?", ["Oceano Atlântico", "Oceano Índico", "Oceano Pacífico", "Mar Mediterrâneo"], 2},
-    {"Quem escreveu 'Dom Quixote'?", ["Miguel de Cervantes", "William Shakespeare", "Franz Kafka", "Leo Tolstoy"], 0},
-    {"Qual é o país com a maior área territorial do mundo?", ["Estados Unidos", "China", "Rússia", "Brasil"], 2},
-    {"Qual é o elemento mais abundante na crosta terrestre?", ["Oxigênio", "Silício", "Ferro", "Alumínio"], 1},
-    {"Qual é a montanha mais alta do mundo?", ["Monte Kilimanjaro", "Monte Everest", "Monte McKinley", "Monte Aconcágua"], 1},
-    {"Qual é o nome do satélite natural da Terra?", ["Europa", "Titã", "Lua", "Ganímedes"], 2},
-    {"Quem pintou a 'Mona Lisa'?", ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"], 1},
-    {"Qual é a capital do Canadá?", ["Toronto", "Ottawa", "Montreal", "Vancouver"], 1},
-    {"Quem é conhecido como o 'Rei do Pop'?", ["Elvis Presley", "Michael Jackson", "Prince", "Madonna"], 1},
+    {"Qual é a capital do Brasil?", {"Brasília", "Rio de Janeiro", "São Paulo", "Belo Horizonte"}, 0},
+    {"Qual é o maior oceano do mundo?", {"Oceano Atlântico", "Oceano Índico", "Oceano Pacífico", "Mar Mediterrâneo"}, 2},
+    {"Quem escreveu 'Dom Quixote'?", {"Miguel de Cervantes", "William Shakespeare", "Franz Kafka", "Leo Tolstoy"}, 0},
+    {"Qual é o país com a maior área territorial do mundo?", {"Estados Unidos", "China", "Rússia", "Brasil"}, 2},
+    {"Qual é o elemento mais abundante na crosta terrestre?", {"Oxigênio", "Silício", "Ferro", "Alumínio"}, 1},
+    {"Qual é a montanha mais alta do mundo?", {"Monte Kilimanjaro", "Monte Everest", "Monte McKinley", "Monte Aconcágua"}, 1},
+    {"Qual é o nome do satélite natural da Terra?", {"Europa", "Titã", "Lua", "Ganímedes"}, 2},
+    {"Quem pintou a 'Mona Lisa'?", {"Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"}, 1},
+    {"Qual é a capital do Canadá?", {"Toronto", "Ottawa", "Montreal", "Vancouver"}, 1},
+    {"Quem é conhecido como o 'Rei do Pop'?", {"Elvis Presley", "Michael Jackson", "Prince", "Madonna"}, 1},
 };
 
 int totalQuestions = sizeof(questions) / sizeof(questions[0]);
