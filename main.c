@@ -111,24 +111,24 @@ typedef struct {
 } Question;
 
 Question questions[] = {
-    {"Qual é a capital do Brasil?", {"Brasília", "Rio de Janeiro", "São Paulo", "Belo Horizonte"}, 0},
-    {"Qual é o maior oceano do mundo?", {"Oceano Atlântico", "Oceano Índico", "Oceano Pacífico", "Mar Mediterrâneo"}, 2},
+    {"Qual e a capital do Brasil?", {"Brasilia", "Rio de Janeiro", "Sao Paulo", "Belo Horizonte"}, 0},
+    {"Qual e o maior oceano do mundo?", {"Oceano Atlantico", "Oceano indico", "Oceano Pacifico", "Mar Mediterraneo"}, 2},
     {"Quem escreveu 'Dom Quixote'?", {"Miguel de Cervantes", "William Shakespeare", "Franz Kafka", "Leo Tolstoy"}, 0},
-    {"Qual é o país com a maior área territorial do mundo?", {"Estados Unidos", "China", "Rússia", "Brasil"}, 2},
-    {"Qual é o elemento mais abundante na crosta terrestre?", {"Oxigênio", "Silício", "Ferro", "Alumínio"}, 1},
-    {"Qual é a montanha mais alta do mundo?", {"Monte Kilimanjaro", "Monte Everest", "Monte McKinley", "Monte Aconcágua"}, 1},
-    {"Qual é o nome do satélite natural da Terra?", {"Europa", "Titã", "Lua", "Ganímedes"}, 2},
+    {"Qual e o pais com a maior area territorial do mundo?", {"Estados Unidos", "China", "Russia", "Brasil"}, 2},
+    {"Qual e o elemento mais abundante na crosta terrestre?", {"Oxigênio", "Silicio", "Ferro", "Aluminio"}, 1},
+    {"Qual e a montanha mais alta do mundo?", {"Monte Kilimanjaro", "Monte Everest", "Monte McKinley", "Monte Aconcágua"}, 1},
+    {"Qual e o nome do satelite natural da Terra?", {"Europa", "Tita", "Lua", "Ganimedes"}, 2},
     {"Quem pintou a 'Mona Lisa'?", {"Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"}, 1},
-    {"Qual é a capital do Canadá?", {"Toronto", "Ottawa", "Montreal", "Vancouver"}, 1},
-    {"Quem é conhecido como o 'Rei do Pop'?", {"Elvis Presley", "Michael Jackson", "Prince", "Madonna"}, 1},
+    {"Qual e a capital do Canada?", {"Toronto", "Ottawa", "Montreal", "Vancouver"}, 1},
+    {"Quem e conhecido como o 'Rei do Pop'?", {"Elvis Presley", "Michael Jackson", "Prince", "Madonna"}, 1},
 };
 
 int totalQuestions = sizeof(questions) / sizeof(questions[0]);
 int currentQuestion = 0;
 bool answerSelected = false;
 int score = 0;
-bool showFeedback = false; // Vari�vel para controlar se o feedback deve ser mostrado
-bool correctAnswer = false; // Vari�vel para armazenar se a resposta selecionada pelo jogador foi correta
+bool showFeedback = false; // Variavel para controlar se o feedback deve ser mostrado
+bool correctAnswer = false; // Variavel para armazenar se a resposta selecionada pelo jogador foi correta
 
 void renderQuestion(Question q) {
     renderText(q.question, 50, 50);
@@ -137,14 +137,14 @@ void renderQuestion(Question q) {
     }
 }
 
-// Adicione estas vari�veis globais para definir as dimens�es e a posi��o do bot�o
+// Adicione estas variaveis globais para definir as dimens�es e a posi��o do bot�o
 const int BUTTON_WIDTH = 200;
 const int BUTTON_HEIGHT = 50;
 const int BUTTON_X = 300;
 const int BUTTON_Y = 500;
 
 void renderButton() {
-    // Desenha o bot�o na tela
+    // Desenha o botao na tela
     SDL_Rect buttonRect = {BUTTON_X, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT};
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     SDL_RenderFillRect(renderer, &buttonRect);
